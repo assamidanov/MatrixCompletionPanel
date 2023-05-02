@@ -1,6 +1,8 @@
 import numpy as np
 
 def DID(M, mask):
+
+    """Difference in difference estimation using numpy"""
     M = M * mask
     treated_rows = np.where(np.mean(mask, axis=1) < 1)[0]
     control_rows = np.setdiff1d(np.arange(M.shape[0]), treated_rows)
@@ -17,5 +19,4 @@ def DID(M, mask):
 
     M_pred_this_row = (M_control_rows.T @ W).T + mu
     M_pred[treated_rows, :] = M_pred_this_row
-        
     return M_pred
